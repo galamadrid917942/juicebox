@@ -50,24 +50,6 @@ async function updateUser(id, fields = {}) {
     }
   }
 
-//   async function createPost({
-//     authorId,
-//     title,
-//     content
-//   }) {
-//     try {
-//         const { rows: [ posts ] } = await client.query(`
-//         INSERT INTO posts("authorId", title, content) 
-//         VALUES($1, $2, $3) 
-//         RETURNING *;
-//       `, [authorId, title, content]);
-  
-//       return posts;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
 async function createPost({
     authorId,
     title,
@@ -88,31 +70,6 @@ async function createPost({
       throw error;
     }
   }
-
-//   async function updatePost(id, fields =  {
-//   }) {
-//         const setString = Object.keys(fields).map(
-//             (key, index) => `"${ key }"=$${ index + 1 }`
-//           ).join(', ');
-        
-//           // return early if this is called without fields
-//           if (setString.length === 0) {
-//             return;
-//           }
-        
-//           try {
-//               const { rows: [ post ] } = await client.query(`
-//               UPDATE posts
-//               SET ${ setString }
-//               WHERE id=${ id }
-//               RETURNING *;
-//             `, Object.values(fields));
-        
-//             return post;
-//           } catch (error) {
-//             throw error;
-//           }
-//         }
 
 async function updatePost(postId, fields = {}) {
     // read off the tags & remove that field 
@@ -275,6 +232,13 @@ async function getPostsByUser(userId) {
     }
   }
 
+  async function getAllTags() {
+    const { rows } = await client.query(`
+    SELECT * FROM tags;`);
+  
+    return rows;
+  }
+
   async function createTags(tagList) {
     if (tagList.length === 0) { 
       return; 
@@ -381,10 +345,11 @@ module.exports = {
   client,
   createUser,
   getAllUsers,
+  getAllPosts,
+  getAllTags,
   updateUser,
   createPost,
   updatePost,
-  getAllPosts,
   getPostsByUser,
   getUserById,
   getPostById,

@@ -6,6 +6,7 @@ const {
     updatePost,
     getAllPosts,
     getAllUsers,
+    getAllTags,
     getUserById,
     getPostsByUser,
     getPostsByTagName,
@@ -88,34 +89,6 @@ const {
     }
   }
 
-//   async function createInitialPosts() {
-//     try {
-//       const [albert, sandra, glamgal] = await getAllUsers();
-  
-//       await createPost({
-//         authorId: albert.id,
-//         title: "First Post",
-//         content: "This is my first post. I hope I love writing blogs as much as I love writing them."
-//       });
-
-//       await createPost({
-//         authorId: sandra.id,
-//         title: "Second Post",
-//         content: "This is my second post. I hope I can travel the world."
-//       });
-
-//       await createPost({
-//         authorId: glamgal.id,
-//         title: "Third Post",
-//         content: "This is my third post. I hope I can make my dreams come true."
-//       });
-  
-//       // a couple more
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
 async function createInitialPosts() {
     try {
       const [albert, sandra, glamgal] = await getAllUsers();
@@ -181,6 +154,10 @@ async function createInitialPosts() {
       console.log("Calling getAllPosts");
       const posts = await getAllPosts();
       console.log("Result:", posts);
+
+      console.log("Calling getAllTags");
+      const tag = await getAllTags();
+      console.log("Result:", tag);
   
       console.log("Calling updatePost on posts[0]");
       const updatePostResult = await updatePost(posts[0].id, {
