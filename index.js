@@ -1,4 +1,6 @@
-const PORT = 3000;
+require('dotenv').config();
+
+const {PORT = 3000} = process.env;
 const express = require('express');
 const server = express();
 
@@ -16,12 +18,6 @@ server.use((req, res, next) => {
     next();
   });
 
-  server.post('/api/users/register', () => {});
-server.post('/api/users/login', () => {});
-server.delete('/api/users/:id', () => {});
-
-// stuff above here
-
 const apiRouter = require('./api');
 server.use('/api', apiRouter);
 
@@ -31,7 +27,5 @@ client.connect();
 server.listen(PORT, () => {
     console.log('The server is up on port', PORT)
   });
-
-// stuff below here
 
 

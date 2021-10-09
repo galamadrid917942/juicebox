@@ -8,6 +8,7 @@ const {
     getAllUsers,
     getAllTags,
     getUserById,
+    getUserByUsername,
     getPostsByUser,
     getPostsByTagName,
     createTags,
@@ -169,6 +170,10 @@ async function createInitialPosts() {
       console.log("Calling getUserById with 1");
       const albert = await getUserById(1);
       console.log("Result:", albert);
+
+      console.log("Calling getUserByUsername with 1");
+      const username = await getUserByUsername(1);
+      console.log("Result:", username);
 
       console.log("Calling getPostsByUser with 1");
       const userposts = await getPostsByUser(1);
