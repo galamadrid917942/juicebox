@@ -64,11 +64,11 @@ async function updateUser(id, fields = {}) {
     }
   }
 
-async function createPost({
+  async function createPost({
     authorId,
     title,
     content,
-    tags = [] // this is new
+    tags = []
   }) {
     try {
       const { rows: [ post ] } = await client.query(`
@@ -202,6 +202,15 @@ async function getPostsByUser(userId) {
         FROM posts
         WHERE id=$1;
       `, [postId]);
+  
+      // THIS IS NEW
+      if (!post) {
+        throw {
+          name: "PostNotFoundError",
+          message: "Could not find a post with that postId"
+        };
+      }
+      // NEWNESS ENDS HERE
   
       const { rows: tags } = await client.query(`
         SELECT tags.*
